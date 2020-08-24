@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body %} 
+    <div class="pt-5 mt-5">
+        {% if task %}
+        <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'core:update' task.id %}"> 
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" placeholder="{{task.title}}" type="search" 
+            name="title" aria-label="Search" value="{{task.title}}">
+            <input class="" value="{{task.complete}}" name="complete" type="hidden">
+            <button class="btn  my-2 my-sm-0 text-white" type="submit" value="Update">Update</button>
+        </form>
+        {% endif %}
+    </div>
+{% endblock %}

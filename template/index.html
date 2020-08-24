@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body %} 
+    <div class="pt-5 mt-5">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-warning alert-dismissable" role="alert">
+                <button class="close" data-dismiss="alert">
+                    <small><sub>x</sub></small>
+                </button>
+                {{message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% if task %}
+            <table class="table table-bordered">
+            {% for todo_list in task %}
+                {% if todo_list.complete %}
+                <tr>
+                    <td class="striker">
+                        <a href="{% url 'core:update' todo_list.id %}">
+                            {{todo_list.title}} 
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'core:uncross' todo_list.id %}">
+                            <center>Uncross </center>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'core:delete' todo_list.id %}">
+                            <center>Delete</center>
+                        </a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td>
+                        <a href="{% url 'core:update' todo_list.id %}">
+                            {{todo_list.title}} 
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'core:cross' todo_list.id %}">
+                            <center>Cross </center>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'core:delete' todo_list.id %}">
+                            <center>Delete</center>
+                        </a>
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            </table>
+        {% else %}
+            <h2>add a task</h2>
+        {% endif %}
+    </div>
+{% endblock %}
